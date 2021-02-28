@@ -26,3 +26,7 @@ def display_ebaything():
 @app.route('/budget')
 def display_budget():
     return render_template('budget.html')
+
+
+if __name__ == '__main__':
+    app.run()
