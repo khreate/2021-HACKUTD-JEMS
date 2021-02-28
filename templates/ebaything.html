@@ -8,6 +8,7 @@
         body {
             background-color: #f55742;
         }
+
         #ebayEleContainer {
             display: flex;
             justify-content: flex-start;
@@ -27,11 +28,13 @@
             height: 300px;
             margin: 10px;
         }
+
         .titleEle {
             display: flex;
             justify-content: center;
             width: 200px;
         }
+
         .imgEle {
             display: flex;
             justify-content: center;
@@ -52,21 +55,42 @@
             display: flex;
             justify-content: center;
         }
-         a {
-             text-decoration: none;
-         }
 
+        a {
+            text-decoration: none;
+        }
+
+        #results {
+            visibility: hidden;
+        }
     </style>
+
+    <script>
+        function showResults() {
+            var x = document.getElementById("results");
+            x.style.visibility = "visible";
+        }
+    </script>
 </head>
 <body>
-    <div id="ebayEleContainer">
-        {% for ele in range(10) %}
-        <a href="{{ link[ele] }}"><div class="ele">
-        <div class="titleEle"><p>{{ title[ele] }}</p></div>
-        <div class="imgEle"><img src="{{ image[ele] }}" /></div>
-        <div class="costEle"><p>{{ cost[ele] }}</p></div>
-        </div> </a>
-        {% endfor %}
+
+    <div id="search">
+        <form onsubmit="showResults()">
+            <input type="text" name="searchBar" />
+        </form>
+    </div>
+    <div id="results">
+        <div id="ebayEleContainer">
+            {% for ele in range(10) %}
+            <a href="{{ link[ele] }}">
+                <div class="ele">
+                    <div class="titleEle"><p>{{ title[ele] }}</p></div>
+                    <div class="imgEle"><img src="{{ image[ele] }}" /></div>
+                    <div class="costEle"><p>{{ cost[ele] }}</p></div>
+                </div>
+            </a>
+            {% endfor %}
+        </div>
     </div>
 
 </body>
