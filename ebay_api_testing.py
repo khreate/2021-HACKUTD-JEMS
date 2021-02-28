@@ -8,13 +8,16 @@ try:
     result_array = []
     result_cost = []
     result_images = []
+    result_link = []
     for item in range(10):
         result_array.append(c[item]['title'])
         result_images.append(c[item]['galleryURL'])
         result_cost.append(c[item]['sellingStatus']['currentPrice']['value'])
+        result_link.append(c[item]['viewItemURL'])
     print(result_array)
     print(result_cost)
     print(result_images)
+    print(result_link)
 except ConnectionError as e:
     print(e)
     print(e.response.dict())
