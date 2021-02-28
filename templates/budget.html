@@ -90,7 +90,15 @@ th {
 		<div id="here">
 		</div>
 </div>
+<div>
+<button id="back" type="button" onclick="mainRedirect()">Back to Main Menu</button>
+</div>
 	<script>
+	
+	function mainRedirect() {
+       location.replace("/")
+    }
+	
 	document.getElementsByTagName("h1")[0].style.fontSize = "3vw";
 
 document.getElementsByName("send")[0].onclick = function () {
@@ -211,16 +219,20 @@ document.getElementById("remove").onclick = function () {
 var listI = [];
 function findTotal() {
 	var arr = document.getElementsByName("covered");
+	var arr2 = document.getElementsByName("price");
 	var tot = 0.0;
 	var counting = 0;
 	for (var i = 0; i < arr.length; i++) {
 		if (parseFloat(arr[i].value) && parseFloat(arr[i].value) != 0){
 			tot += parseFloat(arr[i].value);
-			console.log(parseFloat(arr[i].value));
+			if(parseFloat(arr[i].value) < parseFloat(arr2[i].value)))
+			{
+				listI[counting] = document.getElementsByName("item")[i].value;
+				counting++;
+			}
 		}
 		else
 		{
-			console.log("here");
 			listI[counting] = document.getElementsByName("item")[i].value;
 			counting++;
 		}
