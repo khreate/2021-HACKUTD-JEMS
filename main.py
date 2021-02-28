@@ -17,7 +17,7 @@ def display_index():
 @app.route('/ebaysearch', methods=["POST", "GET"])
 def get_search_query():
     keyword = request.data.decode('utf-8')
-    return keyword
+    return render_template('ebaySearch.html'), keyword
 
 
 @app.route('/ebaything', methods=["POST", "GET"])
