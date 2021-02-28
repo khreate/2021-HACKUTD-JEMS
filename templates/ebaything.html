@@ -73,13 +73,13 @@
 
     <div id="search">
         <form onsubmit="showResults()" method="post">
-            <input type="text" name="searchBar" value="dog food" />
+            <input type="text" name="searchBar" value="dog food" required/>
         </form>
     </div>
     <div id="results">
         <div id="ebayEleContainer">
             {% for ele in range(10) %}
-            <a href="{{ link[ele] }}">
+            <a href="{{ link[ele] }}" target="_blank">
                 <div class="ele">
                     <div class="titleEle"><p>{{ title[ele] }}</p></div>
                     <div class="imgEle"><img src="{{ image[ele] }}" /></div>
