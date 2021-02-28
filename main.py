@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for, request, redirect
+from flask import Flask, render_template
 from ebaysdk.finding import Connection as Finding
 from ebaysdk.exception import ConnectionError
 from ebay_api_testing import *
@@ -21,7 +21,6 @@ def display_ebaything():
     image = ebay_image(keyword)
     link = ebay_link(keyword)
     return render_template('ebaything.html', title=c, cost=cost, image=image, link=link)
-
 
 
 @app.route('/budget')
