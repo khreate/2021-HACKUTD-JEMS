@@ -30,7 +30,13 @@
     <body>
         <nav id="navbar">
             <button id="budget" type="button">Budgeting</button>
-            <button id="ebay" type="button">eBay</button>
+                <button id="ebay" type="button" onclick="ebayRedirect()">eBay</button>
+            <script>
+                function ebayRedirect() {
+                    location.replace("http://localhost:5000/ebaything")
+                }
+            </script>
+            
         </nav>
 
     </body>
