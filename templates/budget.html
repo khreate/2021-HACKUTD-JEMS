@@ -1,10 +1,7 @@
-<!DOCTYPE html>
-<html>
 <head>
-    <title>Insurance Claim Calculator</title>
-    <style>
-        body {
-	font-family: "Lato";
+	<style>
+	body {
+	font-family: system-ui;
 	background: #c06e6e;
 	color: white;
 	text-align: center;
@@ -37,65 +34,64 @@ th {
 	border-collapse: collapse;
 }
 
-    </style>
+	</style>
 </head>
 <body>
-    <h1>Insurance Claim Calculator</h1>
+	<h1>Insurance Claim Calculator</h1>
 
-    <div id="form">
-        <div>
-            <label for="user">Username: <input type="text" name="user"></input></label>
-        </div>
-        <div>
-            <label for="pwd">Password: <input type="password" name="pwd"></input></label>
-        </div>
-        <input type="button" value="login" name="send"></input>
-    </div>
+<div id="form">
+	<div>
+		<label for="user">Username: <input type="text" name="user"></input></label>
+	</div>
+	<div>
+		<label for="pwd">Password: <input type="password" name="pwd"></input></label>
+	</div>
+	<input type="button" value="login" name="send"></input>
+</div>
 
-    <div id="ask" hidden>
-        <h3>Enter items lost and their value: </h3>
-        <table class="ask" id="data">
-            <tr name="header">
-                <th>Item</th>
-                <th>Value</th>
-                <th>Amount covered by Insurance</th>
-            </tr>
-            <tr>
-                <th><input type="text" name="item"></input></th>
-                <th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00"
-                        step=".01" min="0"></input></th>
-                <th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00"
-                        step=".01" min="0"></input></th>
-            </tr>
-            <tr>
-                <th><input type="text" name="item"></input></th>
-                <th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00"
-                        step=".01" min="0"></input></th>
-                <th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00"
-                        step=".01" min="0"></input></th>
-            </tr>
-        </table>
-        <input type="button" id="remove" value="Remove row"></input>
-        <input type="button" id="add" value="Add row"></input>
-        <input onclick="findSubtotal()" onclick="findTotal()" type="button" id="calc" value="Calculate"></input>
-    </div>
-    <br></br>
-    <div id="result" hidden>
-        <table class="result">
-            <tr>
-                <th>Your costs: </th>
-                <th>Costs covered by insurance: </th>
-            </tr>
-            <tr>
-                <th>$<input class="small-input" type="number" name="yTotal" id="yTotal" placeholder="0.00"
-                        step=".01"></input> </th>
-                <th>$<input class="small-input" type="number" name="iTotal" id="iTotal" placeholder="0.00"
-                        step=".01"></input> </th>
-            </tr>
-        </table>
-    </div>
-    <script>
-        document.getElementsByTagName("h1")[0].style.fontSize = "3vw";
+<div id="ask" hidden>
+	<h3>Enter items lost and their value: </h3>
+	<table class="ask" id="data">
+		<tr name="header">
+			<th>Item</th>
+			<th>Value</th>
+			<th>Amount covered by Insurance</th>
+		</tr>
+		<tr>
+			<th><input type="text" name="item" id='1' onchange="generate('1')" ></input></th>
+			<th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00" step="1" min="0" id='2' onchange="generate('2')"></input></th>
+			<th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00" step="1" min="0" id='3' onchange="generate('3')"></input></th>
+		</tr>
+		<tr>
+			<th><input type="text" name="item" id='4' onchange="generate('4')"></input></th>
+			<th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00" step="1" min="0" id='5' onchange="generate('5')"></input></th>
+			<th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00" step="1" min="0" id='6' onchange="generate('6')"></input></th>
+		</tr>
+	</table>
+	<input type="button" id="remove" value="Remove row"></input>
+	<input type="button" id="add" value="Add row"></input>
+	<input type="button" id="calc" value="Calculate"></input>
+</div>
+<br></br>
+<div id="result" hidden>
+	<table class="result">
+		<tr>
+			<th>Your costs: </th>
+			<th>Costs covered by insurance: </th>
+		</tr>
+		<tr>
+			<th>$<output type="number" name="yTotal" id="yTotal" ></output> </th>
+			<th>$<output type="number" name="iTotal" id="iTotal" ></output> </th>
+		</tr>
+	</table>
+	<br/>
+	<br/>
+	<h3>Items not covered:</h3>
+		<div id="here">
+		</div>
+</div>
+	<script>
+	document.getElementsByTagName("h1")[0].style.fontSize = "3vw";
 
 document.getElementsByName("send")[0].onclick = function () {
 	var user = document.getElementsByName("user")[0].value;
@@ -103,30 +99,131 @@ document.getElementsByName("send")[0].onclick = function () {
 	if (user === "" || pwd === "") alert("Enter a valid username and password.");
 	else {
 		document.getElementById("form").setAttribute("hidden", true);
+		checkCookie();
+		populate();
 		document.getElementById("ask").removeAttribute("hidden");
-		document.getElementById("result").removeAttribute("hidden");
 	}
 };
 
+var count = 2;
+function populate() {
+	for (var i = 1; i <= 3 * count; i++) {
+		var x = getCookie(i);
+		x = x.substring(x.indexOf("=") + 1);
+		if(x!=null)
+			document.getElementById(i).value = x;
+	}
+}
+function generate(a) {
+	var x = document.getElementById(a);
+	if (x != "") setCookie(a, x.value);
+}
+function checkCookie() {
+	var c = getCookie("c");
+	c = c.substring(c.indexOf("=") + 1);
+	if (c != "") {
+		while (count < c) {
+			count++;
+			var y1 = count * 3-2;
+			var y2 = count * 3-1;
+			var y3 = count * 3;
+			document.getElementById("data").innerHTML +=
+				'<tr><th><input type="text" name="item" id=' +
+				y1 +
+				' onchange="generate(' +
+				y1 +
+				')"></input></th><th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00" step=".01" min="0" id=' +
+				y2 +
+				' onchange="generate(' +
+				y2 +
+				')"></input></th><th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00" step=".01" min="0" id=' +
+				y3 +
+				' onchange="generate(' +
+				y3 +
+				')"></input></th></tr>';
+		}
+	}
+}
+
+function getCookie(a) {
+	var name = a + "=";
+	var p = document.cookie.split(";");
+	for (var i = 0; i < p.length; i++) {
+		var j = p[i];
+		while (j.charAt(0) == " ") {
+			j = j.substring(1);
+		}
+		if (j.indexOf(name) == 0) {
+			return j.substring(name.lenght, j.lenght);
+		}
+	}
+	return "";
+}
+function setCookie(a, b) {
+	document.cookie = a + "=" + b + ";" + "expires=2100;patch=/";
+}
+document.getElementById("calc").onclick = function () {
+	save();
+	findTotal();
+	findSubtotal();
+	showItems();
+	document.getElementById("ask").setAttribute("hidden", true);
+	document.getElementById("result").removeAttribute("hidden");
+};
+function save() {
+	setCookie("c", count);
+}
+
+
 document.getElementById("add").onclick = function () {
-	var x = document.getElementById("data").innerHTML;
-	x +=
-		'<tr><th><input type="text" name="item"></input></th><th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00" step=".01" min="0"></input></th><th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00" step=".01" min="0"></input></th></tr>';
-	document.getElementById("data").innerHTML = x;
+	count++;
+	var y1 = count * 3-2;
+	var y2 = count * 3-1;
+	var y3 = count * 3;
+	document.getElementById("data").innerHTML +=
+		'<tr><th><input type="text" name="item" id=' +
+				y1 +
+				' onchange="generate(' +
+				y1 +
+				')"></input></th><th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00" step="1" min="0" id=' +
+				y2 +
+				' onchange="generate(' +
+				y2 +
+				')"></input></th><th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00" step="1" min="0" id=' +
+				y3 +
+				' onchange="generate(' +
+				y3 +
+				')"></input></th></tr>';
+	populate();
+	save()
 };
 document.getElementById("remove").onclick = function () {
+	count--;
 	var x = document.getElementById("data").innerHTML;
 	x = x.substring(x.indexOf("<tr>"), x.lastIndexOf("<tr>"));
 	document.getElementById("data").innerHTML =
 		'<tr name="header"><th>Item</th><th>Price</th><th>Amount covered by Insurance</th></tr>' +
 		x;
+	save();
+	populate();
 };
 
+var listI = [];
 function findTotal() {
 	var arr = document.getElementsByName("covered");
 	var tot = 0.0;
+	var counting = 0;
 	for (var i = 0; i < arr.length; i++) {
-		if (parseFloat(arr[i].value)) tot += parseFloat(arr[i].value);
+		if (parseFloat(arr[i].value) && parseFloat(arr[i].value) != 0){
+			tot += parseFloat(arr[i].value);
+			console.log(parseFloat(arr[i].value));
+		}
+		else
+		{
+			console.log("here");
+			listI[counting] = document.getElementsByName("item")[i].value;
+			counting++;
+		}
 	}
 	document.getElementById("iTotal").value = tot;
 }
@@ -141,7 +238,15 @@ function findSubtotal() {
 		tot - document.getElementById("iTotal").value;
 }
 
-    </script>
-</body>
+function showItems() {
+	var x = document.getElementById("here").innerHTML;
+	for (var i = 0; i < listI.length; i++) {
+		var temp = 'https://www.google.com/search?q=' + listI[i];
+		x += "<p><a href='" + temp + "' target='_blank'>" + listI[i] + "</p>";
+	}
+	document.getElementById("here").innerHTML = x;
+}
 
-</html>
+
+	</script>
+</body>
