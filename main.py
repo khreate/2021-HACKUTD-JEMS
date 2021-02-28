@@ -6,29 +6,23 @@ from ebay_api_testing import *
 
 app = Flask(__name__)
 
-keyword = ' '
-
 
 @app.route('/')
 def display_index():
     return render_template('index.html')
 
 
-@app.route('/ebaysearch', methods=["POST", "GET"])
-def get_search_query():
-    keyword = request.data.decode('utf-8')
-    return render_template('ebaySearch.html'), keyword
-
-
 @app.route('/ebaything', methods=["POST", "GET"])
 def display_ebaything():
-    get_search_query()
-    print(request.data)
+    keyword_ = request.get_data().decode('utf-8')
+    keyword = keyword_[10:]
+    if keyword.find('+') != -1:
+        keyword = keyword.replace('+', ' ')
+    print(keyword)
     c = ebay_title(keyword)
     cost = ebay_cost(keyword)
     image = ebay_image(keyword)
     link = ebay_link(keyword)
-
     return render_template('ebaything.html', title=c, cost=cost, image=image, link=link)
 
 
