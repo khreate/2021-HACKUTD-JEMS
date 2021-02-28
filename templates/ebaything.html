@@ -59,10 +59,6 @@
         a {
             text-decoration: none;
         }
-
-        #results {
-            visibility: hidden;
-        }
     </style>
 
     <script>
@@ -74,11 +70,6 @@
 </head>
 <body>
 
-    <div id="search">
-        <form onsubmit="showResults()">
-            <input type="text" name="searchBar" />
-        </form>
-    </div>
     <div id="results">
         <div id="ebayEleContainer">
             {% for ele in range(10) %}
