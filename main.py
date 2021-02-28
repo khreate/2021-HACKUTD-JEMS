@@ -20,3 +20,7 @@ def display_ebaything():
     c = result_array
     return render_template('ebaything.html', title=c, cost=result_cost, image=result_images, link=result_link)
 
+
+@app.route('/budget')
+def display_budget():
+    return render_template('budget.html')
