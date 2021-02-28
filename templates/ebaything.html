@@ -1,17 +1,17 @@
 ﻿<!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
     <style>
-
         body {
             background-color: #CEE5F2;
         }
 
         #search {
             display: flex;
-            justify-content: center;
+            justify-content: center;       
         }
 
         #results {
@@ -73,6 +73,10 @@
         a {
             text-decoration: none;
         }
+
+        #back {
+            margin-left: 20px;
+        }
     </style>
 
     <script>
@@ -81,33 +85,42 @@
             x.style.visibility = "visible";
         }
     </script>
+
+    <script>
+        function mainRedirect() {
+            location.replace("/")
+        }
+    </script>
 </head>
+
 <body>
 
-        <div id="search">
-            <form onsubmit="showResults()" method="post">
-                <input type="text" name="searchBar" required />
-            </form>
-        </div>
-        <div id="results">
-            <div id="ebayEleContainer">
-        
-                {% for ele in range(10) %}
-                <a href="{{ link[ele] }}" target="_blank">
-                    <div class="ele">
-                        <div class="titleEle">
-                            <p>{{ title[ele] }}</p>
-                        </div>
-                        <div class="imgEle"><img src="{{ image[ele] }}" /></div>
-                        <div class="costEle">
-                            <p>{{ cost[ele] }}</p>
-                        </div>
+    <div id="search">
+        <form onsubmit="showResults()" method="post">
+            <input type="text" name="searchBar" required />
+        </form>
+        <button id="back" type="button" onclick="mainRedirect()">Back to Main Menu</button>
+    </div>
+    <div id="results">
+        <div id="ebayEleContainer">
+
+            {% for ele in range(10) %}
+            <a href="{{ link[ele] }}" target="_blank">
+                <div class="ele">
+                    <div class="titleEle">
+                        <p>{{ title[ele] }}</p>
                     </div>
-                </a>
-                {% endfor %}
-        
-            </div>
+                    <div class="imgEle"><img src="{{ image[ele] }}" /></div>
+                    <div class="costEle">
+                        <p>{{ cost[ele] }}</p>
+                    </div>
+                </div>
+            </a>
+            {% endfor %}
+
         </div>
+    </div>
 
 </body>
+
 </html>
