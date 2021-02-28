@@ -251,7 +251,7 @@ function findSubtotal() {
 function showItems() {
 	var x = document.getElementById("here").innerHTML;
 	for (var i = 0; i < listI.length; i++) {
-		var temp = 'https://www.google.com/search?q=' + listI[i];
+		var temp = 'https://www.google.com/search?q=' + listI[i] + '&tbm=shop';
 		x += "<p><a href='" + temp + "' target='_blank'>" + listI[i] + "</p>";
 	}
 	document.getElementById("here").innerHTML = x;
