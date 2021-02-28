@@ -5,7 +5,7 @@ from ebaysdk.exception import ConnectionError
 def ebay_title(keyword):
     try:
         api = Finding(appid="SurajKho-hackutd-PRD-cdc74433e-5e966209", config_file=None)
-        response = api.execute('findItemsAdvanced', {'keywords': keyword})
+        response = api.execute('findItemsAdvanced', {'keywords': 'toilet paper'})
         c = (response.dict()['searchResult']['item'])
         result_array = []
         for item in range(10):
@@ -19,7 +19,7 @@ def ebay_title(keyword):
 def ebay_cost(keyword):
     try:
         api = Finding(appid="SurajKho-hackutd-PRD-cdc74433e-5e966209", config_file=None)
-        response = api.execute('findItemsAdvanced', {'keywords': keyword})
+        response = api.execute('findItemsAdvanced', {'keywords': 'toilet paper'})
         c = (response.dict()['searchResult']['item'])
         result_cost = []
         for item in range(10):
@@ -33,7 +33,7 @@ def ebay_cost(keyword):
 def ebay_image(keyword):
     try:
         api = Finding(appid="SurajKho-hackutd-PRD-cdc74433e-5e966209", config_file=None)
-        response = api.execute('findItemsAdvanced', {'keywords': keyword})
+        response = api.execute('findItemsAdvanced', {'keywords': 'toilet paper'})
         c = (response.dict()['searchResult']['item'])
         result_images = []
         for item in range(10):
@@ -47,7 +47,7 @@ def ebay_image(keyword):
 def ebay_link(keyword):
     try:
         api = Finding(appid="SurajKho-hackutd-PRD-cdc74433e-5e966209", config_file=None)
-        response = api.execute('findItemsAdvanced', {'keywords': keyword})
+        response = api.execute('findItemsAdvanced', {'keywords': 'toilet paper'})
         c = (response.dict()['searchResult']['item'])
         result_link = []
         for item in range(10):

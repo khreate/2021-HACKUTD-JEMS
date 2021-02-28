@@ -14,16 +14,14 @@ def display_index():
 
 @app.route('/ebaything', methods=["POST", "GET"])
 def display_ebaything():
-    keyword_ = request.get_data().decode('utf-8')
-    keyword = keyword_[10:]
-    if keyword.find('+') != -1:
-        keyword = keyword.replace('+', ' ')
+    keyword = 'toilet paper'
     print(keyword)
     c = ebay_title(keyword)
     cost = ebay_cost(keyword)
     image = ebay_image(keyword)
     link = ebay_link(keyword)
     return render_template('ebaything.html', title=c, cost=cost, image=image, link=link)
+
 
 
 @app.route('/budget')
