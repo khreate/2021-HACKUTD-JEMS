@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Insurance Claim Calculator</title>
+    <style>
+        body {
+	font-family: system-ui;
+	background: #c06e6e;
+	color: white;
+	text-align: center;
+}
+
+.small-input {
+	width: 20%;
+}
+.result {
+	width: 30%;
+	background: #af8f8f;
+	color: black;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.ask {
+	width: 50%;
+	background: #af8f8f;
+	color: black;
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+table,
+th {
+	border: 1px solid black;
+	border-collapse: collapse;
+}
+
+    </style>
+</head>
+<body>
+    <h1>Insurance Claim Calculator</h1>
+
+    <div id="form">
+        <div>
+            <label for="user">Username: <input type="text" name="user"></input></label>
+        </div>
+        <div>
+            <label for="pwd">Password: <input type="password" name="pwd"></input></label>
+        </div>
+        <input type="button" value="login" name="send"></input>
+    </div>
+
+    <div id="ask" hidden>
+        <h3>Enter items lost and their value: </h3>
+        <table class="ask" id="data">
+            <tr name="header">
+                <th>Item</th>
+                <th>Value</th>
+                <th>Amount covered by Insurance</th>
+            </tr>
+            <tr>
+                <th><input type="text" name="item"></input></th>
+                <th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00"
+                        step=".01" min="0"></input></th>
+                <th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00"
+                        step=".01" min="0"></input></th>
+            </tr>
+            <tr>
+                <th><input type="text" name="item"></input></th>
+                <th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00"
+                        step=".01" min="0"></input></th>
+                <th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00"
+                        step=".01" min="0"></input></th>
+            </tr>
+        </table>
+        <input type="button" id="remove" value="Remove row"></input>
+        <input type="button" id="add" value="Add row"></input>
+        <input onclick="findSubtotal()" onclick="findTotal()" type="button" id="calc" value="Calculate"></input>
+    </div>
+    <br></br>
+    <div id="result" hidden>
+        <table class="result">
+            <tr>
+                <th>Your costs: </th>
+                <th>Costs covered by insurance: </th>
+            </tr>
+            <tr>
+                <th>$<input class="small-input" type="number" name="yTotal" id="yTotal" placeholder="0.00"
+                        step=".01"></input> </th>
+                <th>$<input class="small-input" type="number" name="iTotal" id="iTotal" placeholder="0.00"
+                        step=".01"></input> </th>
+            </tr>
+        </table>
+    </div>
+    <script>
+        document.getElementsByTagName("h1")[0].style.fontSize = "3vw";
+
+document.getElementsByName("send")[0].onclick = function () {
+	var user = document.getElementsByName("user")[0].value;
+	var pwd = document.getElementsByName("pwd")[0].value;
+	if (user === "" || pwd === "") alert("Enter a valid username and password.");
+	else {
+		document.getElementById("form").setAttribute("hidden", true);
+		document.getElementById("ask").removeAttribute("hidden");
+		document.getElementById("result").removeAttribute("hidden");
+	}
+};
+
+document.getElementById("add").onclick = function () {
+	var x = document.getElementById("data").innerHTML;
+	x +=
+		'<tr><th><input type="text" name="item"></input></th><th>$<input class="small-input" onblur="findSubtotal()" type="number" name="price" placeholder="0.00" step=".01" min="0"></input></th><th>$<input class="small-input" onblur="findTotal()" type="number" name="covered" placeholder="0.00" step=".01" min="0"></input></th></tr>';
+	document.getElementById("data").innerHTML = x;
+};
+document.getElementById("remove").onclick = function () {
+	var x = document.getElementById("data").innerHTML;
+	x = x.substring(x.indexOf("<tr>"), x.lastIndexOf("<tr>"));
+	document.getElementById("data").innerHTML =
+		'<tr name="header"><th>Item</th><th>Price</th><th>Amount covered by Insurance</th></tr>' +
+		x;
+};
+
+function findTotal() {
+	var arr = document.getElementsByName("covered");
+	var tot = 0.0;
+	for (var i = 0; i < arr.length; i++) {
+		if (parseFloat(arr[i].value)) tot += parseFloat(arr[i].value);
+	}
+	document.getElementById("iTotal").value = tot;
+}
+
+function findSubtotal() {
+	var arr = document.getElementsByName("price");
+	var tot = 0.0;
+	for (var i = 0; i < arr.length; i++) {
+		if (parseFloat(arr[i].value)) tot += parseFloat(arr[i].value);
+	}
+	document.getElementById("yTotal").value =
+		tot - document.getElementById("iTotal").value;
+}
+
+    </script>
+</body>
+
+</html>
