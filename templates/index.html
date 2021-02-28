@@ -29,11 +29,16 @@
 </head>
     <body>
         <nav id="navbar">
-            <button id="budget" type="button">Budgeting</button>
+            <button id="budget" type="button" onclick="budgetRedirect()">Budgeting</button>
             <button id="ebay" type="button" onclick="ebayRedirect()">eBay</button>
             <script>
                 function ebayRedirect() {
                     location.replace("ebaything")
+                }
+            </script>
+            <script>
+                function budgetRedirect() {
+                    location.replace("budget")
                 }
             </script>
         </nav>
